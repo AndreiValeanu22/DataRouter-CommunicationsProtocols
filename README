@@ -1,29 +1,32 @@
-Văleanu Andrei de la 321CA
-
-Descriere generală
+## Descriere generală
 
 Bună ziua! Acest proiect reprezintă implementarea unui router simplu în limbajul C, care poate dirija pachete IP între diferite rețele. Routerul implementează funcționalități precum procesul de dirijare, căutarea cu prefixul cel mai lung (LPM), protocolul ICMP și utilizează o tabelă ARP statică pentru rezolvarea adreselor MAC.
-Structura proiectului
+
+## Structura proiectului
 
 Proiectul este împărțit în mai multe fișiere sursă și fișiere header pentru a organiza codul și a facilita dezvoltarea și întreținerea acestuia:
 
-    router.c: Fișierul principal care conține logica efectivă a routerului. Aici sunt implementate funcții pentru procesarea pachetelor, tratarea protocolului ICMP, gestionarea tabelei de rutare și a tabelei ARP.
-    parser.h: Fișierul care conține definiția structurii de date pentru tabela de rutare și declarații pentru funcțiile de parsare a fișierului de configurare al tabelei de rutare.
-    rtable.c: Implementarea tabelei de rutare și funcțiile auxiliare pentru gestionarea acesteia, inclusiv parsarea și căutarea cu prefixul cel mai lung.
-    arp_table.c: Implementarea tabelei ARP și funcțiile auxiliare pentru gestionarea acesteia, inclusiv adăugarea și căutarea intrărilor ARP.
-    skel.h: Fișierul header care conține declarații pentru funcțiile auxiliare și constantele utilizate în întregul proiect.
-    queue.h: Declarații pentru operațiile de bază pe o coadă folosită pentru a gestiona pachetele în așteptare.
+- `router.c`: Fișierul principal care conține logica efectivă a routerului. Aici sunt implementate funcții pentru procesarea pachetelor, tratarea protocolului ICMP, gestionarea tabelei de rutare și a tabelei ARP.
+- `parser.h`: Fișierul care conține definiția structurii de date pentru tabela de rutare și declarații pentru funcțiile de parsare a fișierului de configurare al tabelei de rutare.
+- `rtable.c`: Implementarea tabelei de rutare și funcțiile auxiliare pentru gestionarea acesteia, inclusiv parsarea și căutarea cu prefixul cel mai lung.
+- `arp_table.c`: Implementarea tabelei ARP și funcțiile auxiliare pentru gestionarea acesteia, inclusiv adăugarea și căutarea intrărilor ARP.
+- `skel.h`: Fișierul header care conține declarații pentru funcțiile auxiliare și constantele utilizate în întregul proiect.
+- `queue.h`: Declarații pentru operațiile de bază pe o coadă folosită pentru a gestiona pachetele în așteptare.
 
-Implementare detaliată
-Parsarea tabelei de rutare
+## Implementare detaliată
 
-În parser.h, este definită structura rtable_entry care reprezintă o intrare din tabela de rutare, conținând IP-ul prefixului, adresa next-hop-ului, masca și numărul interfeței. Funcția parse_rtable este responsabilă pentru citirea fișierului de configurare al tabelei de rutare și parsarea acestuia pentru a construi tabela de rutare utilizată de router.
-Gestionarea tabelei de rutare
+### Parsarea tabelei de rutare
 
-În rtable.c, sunt implementate funcțiile parse_rtable pentru parsarea și construirea tabelei de rutare și get_best_route pentru găsirea celei mai potrivite intrări din tabel în funcție de adresa IP dată.
-Gestionarea tabelei ARP
+În `parser.h`, este definită structura `rtable_entry` care reprezintă o intrare din tabela de rutare, conținând IP-ul prefixului, adresa next-hop-ului, masca și numărul interfeței. Funcția `parse_rtable` este responsabilă pentru citirea fișierului de configurare al tabelei de rutare și parsarea acestuia pentru a construi tabela de rutare utilizată de router.
 
-În arp_table.c, sunt implementate funcțiile new_arp_table pentru crearea unei noi tabele ARP, add_arp_entry pentru adăugarea unei noi intrări în tabel și get_arp_entry pentru căutarea unei intrări ARP în funcție de adresă IP.
-Logica routerului
+### Gestionarea tabelei de rutare
 
-În router.c, este implementată logica efectivă a routerului. Aici se procesează pachetele, se tratează protocolul ICMP și se gestionează tabelele de rutare și ARP. Routerul primește un pachet, îl analizează și decide cum să îl dirijeze în funcție de adresa IP de destinație și de conținutul tabelelor de rutare și ARP.
+În `rtable.c`, sunt implementate funcțiile `parse_rtable` pentru parsarea și construirea tabelei de rutare și `get_best_route` pentru găsirea celei mai potrivite intrări din tabel în funcție de adresa IP dată.
+
+### Gestionarea tabelei ARP
+
+În `arp_table.c`, sunt implementate funcțiile `new_arp_table` pentru crearea unei noi tabele ARP, `add_arp_entry` pentru adăugarea unei noi intrări în tabel și `get_arp_entry` pentru căutarea unei intrări ARP în funcție de adresă IP.
+
+### Logica routerului
+
+În `router.c`, este implementată logica efectivă a routerului. Aici se procesează pachetele, se tratează protocolul ICMP și se gestionează tabelele de rutare și ARP. Routerul primește un pachet, îl analizează și decide cum să îl dirijeze în funcție de adresa IP de destinație și de conținutul tabelelor de rutare și ARP.
